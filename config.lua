@@ -73,6 +73,8 @@ vim.opt.titlestring = "%<%F%=%l/%L - Miku"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<S-h>"] = ":bprev<cr>"
+lvim.keys.normal_mode["<S-l>"] = ":bnext<cr>"
 
 -- add by miku
 lvim.keys.visual_mode["J"] = ":move '>+1<CR>gv-gv"
@@ -172,6 +174,12 @@ lvim.builtin.treesitter.auto_install = true
 
 -- -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
 lvim.plugins = {
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
   { "ellisonleao/gruvbox.nvim" },
   { "manzeloth/live-server" },
   { "mg979/vim-visual-multi" },
@@ -263,6 +271,27 @@ lvim.builtin.cmp.mapping = {
     "s",
   }),
 }
+
+-- lsp installer
+lvim.lsp.installer.setup.ensure_installed = {
+  "jsonls",
+  "html",
+  "cssls",
+  "emmet_ls",
+  "tsserver",
+  "intelephense",
+  "tailwindcss",
+}
+require("lvim.lsp.manager").setup("emmet_ls")
+require("lvim.lsp.manager").setup("tailwindcss")
+require("lvim.lsp.manager").setup("intelephense")
+
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
+  { command = "stylua",          filetype = { "lua" } },
+  { command = "prettier" },
+  { command = "blade_formatter", filetype = { "php", "blade", "blade.php" } },
+})
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
