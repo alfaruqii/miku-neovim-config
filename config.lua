@@ -267,35 +267,10 @@ lvim.plugins = {
     end,
   },
   {
-    "laytan/tailwind-sorter.nvim",
-    version = "v1.0.4", -- Specify the version for stability
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-treesitter/nvim-treesitter-textobjects" },
-    build = "cd formatter && npm i && npm run build",
-    config = function()
-      require("tailwind-sorter").setup({
-        on_save_enabled = true, -- Enable on save
-        on_save_pattern = {
-          "*.html",
-          "*.js",
-          "*.jsx",
-          "*.tsx",
-          "*.vue",
-          "*.res",
-          "*.css",
-          "*.pcss",
-          "*.sass",
-          "*.scss",
-          "*.md",
-          "*.mdx",
-          "*.php",
-          "*.heex",
-          "*.eex",
-          "*.erb",
-          "*.hbs",
-          "*.handlebars",
-        },
-      })
-    end,
+    'laytan/tailwind-sorter.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+    build = 'cd formatter && npm ci && npm run build',
+    config = true,
   },
   { 'wakatime/vim-wakatime', lazy = false },
   -- {
